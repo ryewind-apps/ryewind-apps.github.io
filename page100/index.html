@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAGE100</title>
+<meta name="description" content="PAGE100: a free, ad-free Teletext-style service for smart TVs and Android. News, weather, sport, tides, TV listings and useful numbers in blocky text.">
+<link rel="icon" href="../icon.png">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<div class="header"><span class="num">P200</span><span class="svc">PAGE100</span><span class="date"></span><span class="clock"></span></div>
+
+<a class="logo" href="./" aria-label="PAGE100"><span class="word">Page</span><span class="box">100</span></a>
+
+<p>Remember flicking to page 100 for the news, the weather, the football scores? PAGE100 brings it back:
+the black screen, the blocky text, the coloured bands and the three-digit page numbers, with today's news
+and information.</p>
+<p class="green">Free. No ads. No accounts. No tracking.</p>
+
+<h2 class="band blue">What's on it</h2>
+
+<ul class="index">
+    <li><span class="name">News: UK, world and where you are</span><span class="dots"></span><span class="page">101</span></li>
+    <li><span class="name">Sport: scores and tables</span><span class="dots"></span><span class="page">300</span></li>
+    <li><span class="name">Weather for your area</span><span class="dots"></span><span class="page">400</span></li>
+    <li><span class="name">Tides, seas and bathing water</span><span class="dots"></span><span class="page">420</span></li>
+    <li><span class="name">On this day, from Wikipedia</span><span class="dots"></span><span class="page">500</span></li>
+    <li><span class="name">What's on TV now</span><span class="dots"></span><span class="page">600</span></li>
+    <li><span class="name">Useful numbers and helplines</span><span class="dots"></span><span class="page">180</span></li>
+</ul>
+
+<h2 class="band red">Get it</h2>
+
+<p><span class="yellow">Samsung smart TVs:</span> currently being tested with a small group of viewers.</p>
+<p><span class="yellow">Android phones and tablets:</span> coming soon to Google Play. On a phone you tap the page
+numbers and swipe to turn the pages; no remote needed.</p>
+
+<h2 class="band green" id="supporters">Supporters</h2>
+
+<p>PAGE100 is kept free by people who buy the maker a coffee. Thank you, all of you.</p>
+<ul class="supporters" id="supporter-list"><li class="cyan">Loading...</li></ul>
+<p><a class="button" href="https://buymeacoffee.com/ryewindapps">Buy me a coffee</a></p>
+<p class="cyan">Leave a message with your coffee and it may appear here: first name or nickname only, and
+every message is read before it goes up. If you'd rather yours stayed private, just say so.</p>
+
+<div class="fastext">
+    <a class="r" href="../">All apps</a>
+    <a class="g" href="#supporters">Supporters</a>
+    <a class="y" href="privacy.html">Privacy</a>
+    <a class="b" href="mailto:ryewind.apps@gmail.com">Contact</a>
+</div>
+
+<script src="../clock.js"></script>
+<script>
+// The supporters' messages, from supporters.json (the same list the app shows).
+(function () {
+    var list = document.getElementById('supporter-list');
+    function add(cls, text, parent) {
+        var span = document.createElement('span');
+        span.className = cls;
+        span.textContent = text;
+        parent.appendChild(span);
+        return span;
+    }
+    fetch('supporters.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (data) {
+        var people = (data && data.supporters) || [];
+        list.textContent = '';
+        if (!people.length) {
+            add('cyan', 'No messages yet. Yours could be the first!', list.appendChild(document.createElement('li')));
+            return;
+        }
+        people.forEach(function (p) {
+            var li = list.appendChild(document.createElement('li'));
+            add('who', p.name, li);
+            if (p.date) add('when', '  ' + p.date, li);
+            li.appendChild(document.createElement('br'));
+            if (p.message) add('msg', p.message, li);
+        });
+    }).catch(function () {
+        list.textContent = '';
+        add('red', 'The supporters list could not be loaded.', list.appendChild(document.createElement('li')));
+    });
+}());
+</script>
+</body>
+</html>

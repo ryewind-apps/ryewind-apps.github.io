@@ -1,0 +1,145 @@
+/* The website, dressed as a Teletext page: black screen, the eight Teletext colours, Bedstead
+   for headings and bands. Long reading text (the privacy policy) uses a plain font. */
+@font-face {
+    font-family: 'Bedstead';
+    src: url('fonts/bedstead.otf') format('opentype');
+    font-display: swap;
+}
+
+:root {
+    --black: #000; --red: #f00; --green: #0f0; --yellow: #ff0;
+    --blue: #00f; --magenta: #f0f; --cyan: #0ff; --white: #fff;
+    --tt: 'Bedstead', 'Courier New', monospace;
+    --plain: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--black); }
+
+body {
+    margin: 0 auto;
+    max-width: 52rem;
+    padding: 0 16px 48px;
+    color: var(--white);
+    background: var(--black);
+    font-family: var(--tt);
+    font-size: 18px;
+    line-height: 1.45;
+}
+
+a { color: var(--cyan); }
+a:hover, a:focus { color: var(--yellow); }
+
+/* Row 1: page number, service name, date and clock. */
+.header {
+    display: flex;
+    gap: 1ch;
+    padding: 10px 0 6px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.header .num { color: var(--white); }
+.header .svc { color: var(--yellow); }
+.header .clock { margin-left: auto; color: var(--yellow); }
+
+/* The PAGE100-style logo: yellow on a blue band, the number in a white box. */
+.logo {
+    display: flex;
+    align-items: stretch;
+    background: var(--blue);
+    border-top: 2px solid var(--blue);
+    border-bottom: 2px solid var(--blue);
+    margin: 6px 0 18px;
+    font-family: var(--tt);
+    font-size: clamp(36px, 10vw, 72px);
+    line-height: 1.1;
+    text-decoration: none;
+}
+.logo .word { color: var(--yellow); padding: 0 0.25em; font-weight: bold; }
+.logo .box { background: var(--white); color: var(--blue); padding: 0 0.15em; font-weight: bold; }
+
+/* A double-height title band. */
+.band {
+    margin: 26px 0 12px;
+    padding: 4px 10px;
+    font-family: var(--tt);
+    font-size: 1.6em;
+    font-weight: normal;
+    line-height: 1.2;
+}
+.band.blue { background: var(--blue); color: var(--yellow); }
+.band.red { background: var(--red); color: var(--white); }
+.band.green { background: var(--green); color: var(--black); }
+.band.magenta { background: var(--magenta); color: var(--white); }
+.band.cyan { background: var(--cyan); color: var(--blue); }
+
+.yellow { color: var(--yellow); }
+.cyan { color: var(--cyan); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.white { color: var(--white); }
+
+/* An index list: name, dots, page number, as on P100. */
+.index { list-style: none; padding: 0; margin: 0; }
+.index li { display: flex; gap: 1ch; margin: 4px 0; }
+.index a { text-decoration: none; color: var(--white); display: flex; gap: 1ch; width: 100%; }
+.index .dots { flex: 1; overflow: hidden; color: var(--blue); }
+.index .dots::before { content: '..............................................................................'; }
+.index .page { color: var(--yellow); }
+.index a:hover .name, .index a:focus .name { color: var(--yellow); }
+
+.app {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    margin: 12px 0;
+}
+.app img { width: 96px; height: 96px; image-rendering: pixelated; flex: none; }
+
+.plain { font-family: var(--plain); font-size: 17px; line-height: 1.6; }
+.plain h2 { font-family: var(--tt); font-weight: normal; color: var(--yellow); font-size: 1.25em; margin: 28px 0 8px; }
+.plain table { border-collapse: collapse; width: 100%; margin: 8px 0 16px; font-size: 15px; }
+.plain th, .plain td { text-align: left; vertical-align: top; padding: 6px 8px; border-bottom: 1px solid #333; }
+.plain th { color: var(--cyan); font-weight: 600; }
+.table-wrap { overflow-x: auto; }
+
+.button {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--yellow);
+    color: var(--black);
+    text-decoration: none;
+    font-family: var(--tt);
+}
+.button:hover, .button:focus { background: var(--white); color: var(--black); }
+
+/* Supporters' messages: name in yellow, message in white, like a letters page. */
+.supporters { list-style: none; padding: 0; margin: 0; }
+.supporters li { margin: 0 0 16px; }
+.supporters .who { color: var(--yellow); }
+.supporters .msg { color: var(--white); }
+.supporters .when { color: var(--cyan); }
+
+/* The Fastext row at the foot. */
+.fastext {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin-top: 40px;
+    padding-top: 10px;
+    border-top: 2px solid #222;
+}
+.fastext a { text-decoration: none; }
+.fastext .r { color: var(--red); }
+.fastext .g { color: var(--green); }
+.fastext .y { color: var(--yellow); }
+.fastext .b { color: var(--cyan); }
+
+@media (max-width: 480px) {
+    body { font-size: 16px; }
+    .header .date { display: none; }
+    .app { align-items: flex-start; }
+    .app img { width: 64px; height: 64px; }
+}
